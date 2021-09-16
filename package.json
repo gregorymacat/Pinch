@@ -7,7 +7,8 @@
     "start": "nodemon ./server/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-app": "webpack --watch",
-    "build-style": "sass --watch public/assets/styles/input.scss:public/assets/styles/output.css"
+    "build-style": "sass --watch public/assets/styles/input.scss:public/assets/styles/output.css",
+    "fix-lock": "npm install [--package-lock-only]"
   },
   "repository": {
     "type": "git",
