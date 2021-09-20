@@ -1,7 +1,6 @@
-import React from 'react';
-import {useState} from 'react';
+import React, { useState } from 'react';
 
-const App = function() {
+function App() {
   return (
     <div>
       <h1>Welcome to our Application!</h1>
