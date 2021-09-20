@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const App = () => {
+const App = function() {
   const [state, setState] = useState({ state: ' ' });
 
   return (
