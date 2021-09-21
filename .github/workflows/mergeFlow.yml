@@ -12,6 +12,7 @@ on:
 
 
 jobs:
+  name: Merge Test
   build:
     name: Merge Test
     runs-on: ubuntu-latest
