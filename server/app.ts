@@ -1,26 +1,3 @@
-<<<<<<< HEAD
-const express = require('express');
-const path = require('path');
-
-const app = express();
-const port = 3000;
-
-app.use('/', express.static(path.join(__dirname, '../public')));
-app.use('/', express.static(path.join(__dirname, '../src')));
-
-app.get('/*', (req: any, res: any) => {
-  res.sendFile(path.join(__dirname, '../public/index.html'), (err: Error) => {
-    if (err) {
-      res.status(500).send(err);
-    }
-  });
-});
-
-app.listen(port, () => {
-  // eslint-disable-next-line no-console
-  console.log(`This app is now listening at http://localhost:${port}`);
-});
-=======
 // // import express from 'express';
 // const express = require('express');
 // const path = require('path');
@@ -96,4 +73,3 @@ app.listen(port, () => {
 //   // eslint-disable-next-line no-console
 //   console.log(`This app is now listening at http://localhost:${port}`);
 // });
->>>>>>> 96d93bf9e3ebdd690016f1e098c29663b1f33c7d
