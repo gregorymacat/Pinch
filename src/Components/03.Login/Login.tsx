@@ -1,18 +1,30 @@
-// import * as React from 'react';
 import React, { useState } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
-// import ApolloClient from 'apollo-boost';
-// import { ApolloProvider } from '@apollo/client';
+import validateLogin from '../SharedComponents/05.Validation/loginCheck';
 
 interface OverviewProps extends RouteComponentProps<{ name: string }> { }
 
+interface Verrors {
+  email: string;
+  password: string;
+}
+
 // eslint-disable-next-line no-unused-vars
 function Login(props: OverviewProps) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [validation, setErrors] = useState<Verrors>();
   // eslint-disable-next-line no-unused-vars
   const [err, setErr] = useState([]);
+  const history = useHistory();
+
+  const allValues: any = {
+    // eslint-disable-next-line quote-props
+    'email': email,
+    // eslint-disable-next-line quote-props
+    'password': password,
+  };
 
   const handleEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     const emailInput: string = event.target.value;
@@ -27,6 +39,10 @@ function Login(props: OverviewProps) {
   // eslint-disable-next-line no-unused-vars
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const headers = { 'Content-Type': 'application/json' };
+
+    const returnedValidation = validateLogin(allValues);
+    setErrors(returnedValidation);
+
     axios.post(
       'http://localhost:4000/graphql',
       JSON.stringify({
@@ -42,6 +58,8 @@ function Login(props: OverviewProps) {
       }), { headers },
     )
       .then((response) => {
+        // console.log('should redirect');
+        history.push('/home/overview');
         const error = response.data.errors;
         setErr(error);
       })
@@ -50,7 +68,7 @@ function Login(props: OverviewProps) {
 
   return (
     <div className="login-container">
-      <div />
+      <div className="empty-div" />
       <div className="login-center-div">
         <div className="login-main-div">
           <div className="login-page-logo-div">
@@ -60,19 +78,23 @@ function Login(props: OverviewProps) {
             <div className="credentials-title">Login</div>
             <form className="login-form">
               <div className="login-input-title">Email Address</div>
-              <input
-                className="login-input"
-                type="text"
-                placeholder="example@email.com"
-                onChange={(event) => handleEmail(event)}
-              />
+              <div className="input-container" data-error={validation?.email}>
+                <input
+                  className="login-input"
+                  type="text"
+                  placeholder="example@email.com"
+                  onChange={(event) => handleEmail(event)}
+                />
+              </div>
               <div className="login-input-title">Password</div>
-              <input
-                className="login-input"
-                type="password"
-                placeholder="•••••••••••••"
-                onChange={(event) => handlePassword(event)}
-              />
+              <div className="input-container" data-error={validation?.password}>
+                <input
+                  className="login-input"
+                  type="password"
+                  placeholder="•••••••••••••"
+                  onChange={(event) => handlePassword(event)}
+                />
+              </div>
               <div className="remember-me">
                 <label htmlFor="remember-me" className="remember-me-label">
                   <input className="remember-me-chk" type="checkbox" id="remember-me" />
@@ -88,8 +110,14 @@ function Login(props: OverviewProps) {
               our Global Privacy Statement.
             </div>
             <div className="no-account">
-              <div>Don’t have an account?</div>
-              <div>Sign Up</div>
+              <div>
+                Don’t have an account?
+                <u className="signup-link">
+                  <Link to="/signup" style={{ color: 'inherit' }}>
+                    Sign Up
+                  </Link>
+                </u>
+              </div>
             </div>
           </div>
         </div>
