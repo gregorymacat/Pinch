@@ -21,12 +21,14 @@ type Goal {
   description: String
 }
 type Budget {
+  income: Float
   name: String
-  amount: Float
+  value: Float
 }
 input BudgetInput {
+  income: Float
   name: String
-  amount: Float
+  value: Float
 }
 type Subscription {
   currentCost: Float
@@ -103,7 +105,7 @@ type Mutation {
   createGoal(id: String!, name: String, currentAmount: Float, goalAmount: Float, description: String): Goal
   createBudget(id: String! budget: [BudgetInput]): Budget
   updateGoalText(id: String!, original: String, update: String, fieldOfUpdate: String): User
-  updateGoalAmount(id: String!, original: Float, update: Float, fieldOfUpdate: String): User
+  updateGoalAmount(id: String!, goalName: String, original: Float, update: Float, fieldOfUpdate: String): User
   deleteGoal(id: String!, goalName: String!): User
   addSubscription(id: String!, subscriptions: [SubInput]): Subscription
   deleteOneAccount(id: String): User

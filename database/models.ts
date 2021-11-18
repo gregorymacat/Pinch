@@ -143,6 +143,7 @@ mutation{
 module.exports.updateGoal = (obj) => {
   const {
     id,
+    goalName,
     original,
     update,
     fieldOfUpdate,
@@ -168,7 +169,7 @@ module.exports.updateGoal = (obj) => {
       .catch((error) => console.log(error));
   } else if (fieldOfUpdate === 'currentAmount') {
     const transID = Mongoose.Types.ObjectId(id);
-    UserModel.updateOne({ '_id': transID, 'goals.currentAmount': original }, {
+    UserModel.updateOne({ '_id': transID, 'goals.name': goalName }, {
       $set: {
         'goals.$.currentAmount': update,
       },
@@ -241,12 +242,14 @@ mutation{
 module.exports.makeBudget = (obj) => {
   const {
     id,
+    income,
     budget,
   } = obj;
 
   const transID = Mongoose.Types.ObjectId(id);
   UserModel.updateOne({ '_id': transID }, {
     $set: {
+      'income': income,
       'budget': budget,
     },
   })

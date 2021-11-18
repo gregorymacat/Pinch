@@ -40,10 +40,9 @@ passport.serializeUser((user, done) => {
 });
 passport.deserializeUser((id, done) => {
   // eslint-disable-next-line quote-props
-  UserModel.findOne({ 'id': id })
+  UserModel.findOne({ '_id': id })
     .then((result) => {
       const matchingUser = result;
-      console.log(matchingUser);
       done(null, matchingUser);
     })
     .catch((error) => console.log(error));
@@ -61,7 +60,6 @@ passport.use(
   }),
 );
 
-// apollo server connection
 const server = new ApolloServer({
   typeDefs,
   resolvers,
