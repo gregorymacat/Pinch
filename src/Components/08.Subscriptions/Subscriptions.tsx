@@ -89,8 +89,6 @@ function Subscriptions() {
     setPick(specificSub);
   };
 
-  // console.log('list', list);
-
   return (
     <div className="subscriptions-outter-container">
       <div className="subscriptions-inner-container">
