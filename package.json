@@ -8,6 +8,7 @@
     "test": "jest",
     "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx",
     "build-ci": "webpack",
+    "build-prod": "webpack",
     "build-app": "webpack --watch",
     "build-style": "sass --watch public/assets/styles/input.scss:public/assets/styles/output.css",
     "fix-lock": "npm install --package-lock-only"
